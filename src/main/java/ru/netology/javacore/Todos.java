@@ -6,61 +6,61 @@ import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Todos implements TaskHandler {
-    private List<String> listTask;
-    private Deque<Request> requestDeque;
+public class Todos implements Executable {
+    private List<String> taskList;
+    private final Deque<Order> orderDeque;
     private static final int size = 7;
 
     public Todos() {
-        this.listTask = new ArrayList<>();
-        this.requestDeque = new ArrayDeque<>();
+        this.taskList = new ArrayList<>();
+        this.orderDeque = new ArrayDeque<>();
     }
 
     @Override
-    public void addTask(Request request) {
-        if (listTask.size() < size) {
-            listTask.add(request.getTask());
-            requestDeque.offerLast(request);
+    public void addTask(Order order) {
+        if (taskList.size() < size) {
+            taskList.add(order.getTask());
+            orderDeque.offerLast(order);
         }
     }
 
     @Override
-    public void removeTask(Request request) {
-        if (listTask.remove(request.getTask())) {
-            requestDeque.offerLast(request);
+    public void removeTask(Order order) {
+        if (taskList.remove(order.getTask())) {
+            orderDeque.offerLast(order);
         }
     }
 
     @Override
     public void restoreTask() {
-        if (!requestDeque.isEmpty()) {
-            Request request = requestDeque.pollLast();
-            switch (request.getType()) {
+        if (!orderDeque.isEmpty()) {
+            Order order = orderDeque.pollLast();
+            switch (order.getType()) {
                 case ADD:
-                    listTask.remove(request.getTask());
+                    taskList.remove(order.getTask());
                     break;
                 case REMOVE:
-                    listTask.add(request.getTask());
+                    taskList.add(order.getTask());
             }
         }
     }
 
     @Override
     public String getAllTasks() {
-        return listTask.stream()
+        return taskList.stream()
                 .sorted(String.CASE_INSENSITIVE_ORDER)
                 .collect(Collectors.joining(" "));
     }
 
-    public List<String> getListTask() {
-        return listTask;
+    public List<String> getTaskList() {
+        return taskList;
     }
 
-    public void setListTask(List<String> listTask) {
-        this.listTask = listTask;
+    public void setTaskList(List<String> taskList) {
+        this.taskList = taskList;
     }
 
-    public Deque<Request> getRequestDeque() {
-        return requestDeque;
+    public Deque<Order> getOrderDeque() {
+        return orderDeque;
     }
 }

@@ -30,19 +30,18 @@ public class TodoServer {
                      BufferedReader in = new BufferedReader(new InputStreamReader(
                              clientSocket.getInputStream()))) {
 
-                    Request request = gson.fromJson(in.readLine(), Request.class);
-                    switch (request.getType()) {
+                    Order order = gson.fromJson(in.readLine(), Order.class);
+                    switch (order.getType()) {
                         case ADD:
-                            todos.addTask(request);
+                            todos.addTask(order);
                             break;
                         case REMOVE:
-                            todos.removeTask(request);
+                            todos.removeTask(order);
                             break;
                         case RESTORE:
                             todos.restoreTask();
                     }
-                    String response = todos.getAllTasks();
-                    out.println(response+" list: "+todos.getListTask().size()+" deque: "+todos.getRequestDeque().size());
+                    out.println(todos.getAllTasks());
                 } catch (Exception e) {
                     throw new RuntimeException(e.getMessage());
                 }
