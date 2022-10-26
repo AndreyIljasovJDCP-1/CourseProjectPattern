@@ -42,7 +42,7 @@ public class TodoServer {
                             todos.restoreTask();
                     }
                     String response = todos.getAllTasks();
-                    out.println(response+" list: "+todos.listTask.size()+" deque: "+todos.requestDeque.size());
+                    out.println(response+" list: "+todos.getListTask().size()+" deque: "+todos.getRequestDeque().size());
                 } catch (Exception e) {
                     throw new RuntimeException(e.getMessage());
                 }

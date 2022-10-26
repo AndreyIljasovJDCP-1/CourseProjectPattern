@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Todos implements TaskHandler {
-    List<String> listTask;
-    Deque<Request> requestDeque;
+    private List<String> listTask;
+    private Deque<Request> requestDeque;
     private static final int size = 7;
 
     public Todos() {
@@ -52,4 +52,15 @@ public class Todos implements TaskHandler {
                 .collect(Collectors.joining(" "));
     }
 
+    public List<String> getListTask() {
+        return listTask;
+    }
+
+    public void setListTask(List<String> listTask) {
+        this.listTask = listTask;
+    }
+
+    public Deque<Request> getRequestDeque() {
+        return requestDeque;
+    }
 }

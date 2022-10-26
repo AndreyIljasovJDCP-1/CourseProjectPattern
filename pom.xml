@@ -63,6 +63,7 @@
                 </dependencies>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <failIfNoTests>true</failIfNoTests>
                     <reportFormat>plain</reportFormat>
                     <consoleOutputReporter>
                         <disable>true</disable>
