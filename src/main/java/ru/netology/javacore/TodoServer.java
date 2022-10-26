@@ -19,9 +19,9 @@ public class TodoServer {
     }
 
     public void start() {
-
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Starting server at " + port + "...");
+            Gson gson = new Gson();
 
             while (true) {
                 try (Socket clientSocket = serverSocket.accept();
@@ -29,21 +29,20 @@ public class TodoServer {
                              clientSocket.getOutputStream(), true);
                      BufferedReader in = new BufferedReader(new InputStreamReader(
                              clientSocket.getInputStream()))) {
-                    Gson gson = new Gson();
+
                     Request request = gson.fromJson(in.readLine(), Request.class);
                     switch (request.getType()) {
                         case ADD:
-                            todos.addTask(request.getTask());
+                            todos.addTask(request);
                             break;
                         case REMOVE:
-                            todos.removeTask(request.getTask());
+                            todos.removeTask(request);
                             break;
-                        /*case RESTORE:
-                            todos.restore();
-                            break;*/
+                        case RESTORE:
+                            todos.restoreTask();
                     }
                     String response = todos.getAllTasks();
-                    out.println(response);
+                    out.println(response+" list: "+todos.listTask.size()+" deque: "+todos.requestDeque.size());
                 } catch (Exception e) {
                     throw new RuntimeException(e.getMessage());
                 }
@@ -52,7 +51,5 @@ public class TodoServer {
             System.out.println("Не могу стартовать сервер");
             e.printStackTrace();
         }
-
-        //...
     }
 }
