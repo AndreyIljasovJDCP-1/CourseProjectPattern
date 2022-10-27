@@ -41,7 +41,9 @@ public class TodoServer {
                         case RESTORE:
                             todos.restoreTask();
                     }
-                    out.println(todos.getAllTasks());
+                    out.println(todos.getAllTasks()
+                            + " list: " + todos.getTaskList().size()
+                            + " stack: " + todos.getOrderDeque().size());
                 } catch (Exception e) {
                     throw new RuntimeException(e.getMessage());
                 }

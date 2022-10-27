@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class Todos implements Executable {
     private List<String> taskList;
     private final Deque<Order> orderDeque;
-    private static final int size = 7;
+    private static final int SIZE = 7;
 
     public Todos() {
         this.taskList = new ArrayList<>();
@@ -18,23 +18,26 @@ public class Todos implements Executable {
 
     @Override
     public void addTask(Order order) {
-        if (taskList.size() < size) {
+        if (taskList.size() < SIZE) {
             taskList.add(order.getTask());
-            orderDeque.offerLast(order);
+            //orderDeque.offerLast(order);
+            orderDeque.push(order);
         }
     }
 
     @Override
     public void removeTask(Order order) {
         if (taskList.remove(order.getTask())) {
-            orderDeque.offerLast(order);
+            //orderDeque.offerLast(order);
+            orderDeque.push(order);
         }
     }
 
     @Override
     public void restoreTask() {
         if (!orderDeque.isEmpty()) {
-            Order order = orderDeque.pollLast();
+            //Order order = orderDeque.pollLast();
+            Order order = orderDeque.pop();
             switch (order.getType()) {
                 case ADD:
                     taskList.remove(order.getTask());
