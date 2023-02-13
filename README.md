@@ -1,3 +1,4 @@
+![picture](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaM86sA_OFyywLcLkCNudDI-I-q7k__wbwhg&usqp=CAU)
 ### Курсовая работа. «Менеджер задач»
 
 **Задача:** разработать сервер, отвечающий за менеджмент списка дел.
